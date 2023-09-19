@@ -1,5 +1,7 @@
 package org.totalbeginner.tutorial;
 
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
 import static org.junit.jupiter.api.Assertions.*;
 
 import java.util.ArrayList;
@@ -63,9 +65,30 @@ class MyLibraryTest {
 		ml.removeBook(b2);
 		assertEquals(0, ml.getBooks().size());
 		
+				
 		
+	}
+	
+	public void testCheckout() {
 		
+		setup();
 		
+		ml.addBook(b1);
+		ml.addBook(b1);
+		ml.addPerson(p1);
+		ml.addPerson(p2);
+		
+		assertTrue("Book did not checkout correctly", ml.checkout(b1,p1));		
+		
+		assertEquals("Fred", b1.getPerson().getName());
+		
+		assertFalse("Book was already checked out", ml.checkout(b1, p2));
+		
+		assertTrue("Book checkin falied", ml.checkIn(b1));
+		
+		assertFalse("Book was already checked in", ml.checkIn(b1));
+		
+		assertFalse("Book was never checked out", ml.checkIn(b2));	
 		
 		
 		
